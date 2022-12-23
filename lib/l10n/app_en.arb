@@ -1,0 +1,10 @@
+{
+  "appBarText":"To Do List",
+  "settings": "Settings",
+  "language": "Language",
+  "theme_mode" : "Apperence",
+  "english" : "English",
+  "arabic" : "Arabic",
+  "dark": "Dark",
+  "light" : "Light"
+}
