@@ -20,75 +20,80 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var pro = Provider.of<MyProvider>(context);
-    return Scaffold(
-      backgroundColor:
-          pro.themeMode == ThemeMode.light ? mintColor : blackColor,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(160),
-        child: AppBar(
-          title: Container(
-              padding: EdgeInsets.only(left: 50),
-              child: Text(
-                current_index == 1
-                    ? AppLocalizations.of(context)!.settings
-                    : AppLocalizations.of(context)!.appBarText,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: pro.themeMode == ThemeMode.dark
-                        ? blackColor
-                        : Colors.white),
-              )),
-          centerTitle: false,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor:
+            pro.themeMode == ThemeMode.light ? mintColor : blackColor,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(160),
+          child: AppBar(
+            title: Container(
+                padding: EdgeInsets.only(left: 50),
+                child: Text(
+                  current_index == 1
+                      ? AppLocalizations.of(context)!.settings
+                      : AppLocalizations.of(context)!.appBarText,
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: pro.themeMode == ThemeMode.dark
+                          ? blackColor
+                          : Colors.white),
+                )),
+            centerTitle: false,
+          ),
         ),
-      ),
-      body: screen[current_index],
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 8,
-        child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: current_index,
-          onTap: (index) {
-            current_index = index;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-                backgroundColor: pro.themeMode == ThemeMode.light
-                    ? Colors.white
-                    : blackColor,
-                icon: Icon(
-                  Icons.list_rounded,
-                  size: 40,
+        body: screen[current_index],
+        bottomNavigationBar: BottomAppBar(
+          color:
+          pro.themeMode == ThemeMode.dark ? blackColor : Colors.white,
+          shape: CircularNotchedRectangle(),
+          notchMargin: 8,
+          child: BottomNavigationBar(
+
+            unselectedItemColor:
+                pro.themeMode == ThemeMode.dark ? Colors.white : grayColor,
+            backgroundColor: Colors.transparent,
+
+            elevation: 0.0,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: current_index,
+            onTap: (index) {
+              current_index = index;
+              setState(() {});
+            },
+            items: [
+              BottomNavigationBarItem(
+
+                  icon: Icon(
+                    Icons.list_rounded,
+                    size: 40,
+                  ),
+                  label: ''),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/icon-settings.png'),
+                  size: 30,
                 ),
-                label: ''),
-            BottomNavigationBarItem(
-              backgroundColor:
-                  pro.themeMode == ThemeMode.light ? Colors.white : blackColor,
-              icon: ImageIcon(
-                AssetImage('assets/images/icon-settings.png'),
-                size: 30,
-              ),
-              label: '',
-            )
-          ],
+                label: '',
+              )
+            ],
+          ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            return showBottomAddTask();
+          },
+          child: Icon(Icons.add),
+          shape: StadiumBorder(
+              side: BorderSide(
+                  color: pro.themeMode == ThemeMode.dark
+                      ? blackColor
+                      : Colors.white,
+                  width: 5)),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          return showBottomAddTask();
-        },
-        child: Icon(Icons.add),
-        shape: StadiumBorder(
-            side: BorderSide(
-                color:
-                    pro.themeMode == ThemeMode.dark ? blackColor : Colors.white,
-                width: 5)),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
