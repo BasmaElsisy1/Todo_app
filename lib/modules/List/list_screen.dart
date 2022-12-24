@@ -2,10 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/modules/List/task_item.dart';
 // import 'package:todo_application/modules/List/task_item.dart';
 // import 'package:todo_application/shared/network/local/firebase_utils.dart';
 import '../../models/task.dart';
+import '../../providers/myProvider.dart';
 import '../../shared/network/local/firebase_utils.dart';
 import '../../shared/styles/colors.dart';
 
@@ -19,7 +21,10 @@ class _ListScreenState extends State<ListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+
     return Container(
+      margin: EdgeInsets.only(top: 10),
       child: Column(
         children: [
           CalendarTimeline(
@@ -33,10 +38,11 @@ class _ListScreenState extends State<ListScreen> {
               });
             },
             leftMargin: 20,
-            monthColor: blackColor,
-            dayColor: blackColor,
+            dayNameColor: provider.themeMode == ThemeMode.dark? Colors.white: blackColor,
+            monthColor: provider.themeMode == ThemeMode.dark? Colors.white: blackColor,
+            dayColor: provider.themeMode == ThemeMode.dark? Colors.white: blackColor,
             activeDayColor: blueColor,
-            activeBackgroundDayColor: Colors.white,
+            activeBackgroundDayColor: provider.themeMode == ThemeMode.dark? blackColor: Colors.white,
             dotsColor: Colors.transparent,
             selectableDayPredicate: (date) => true,
             locale: 'en',

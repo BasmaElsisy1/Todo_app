@@ -32,7 +32,12 @@ class _HomePageState extends State<HomePage> {
                 current_index == 1
                     ? AppLocalizations.of(context)!.settings
                     : AppLocalizations.of(context)!.appBarText,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: pro.themeMode == ThemeMode.dark
+                        ? blackColor
+                        : Colors.white),
               )),
           centerTitle: false,
         ),
@@ -77,7 +82,11 @@ class _HomePageState extends State<HomePage> {
           return showBottomAddTask();
         },
         child: Icon(Icons.add),
-        shape: StadiumBorder(side: BorderSide(color: Colors.white, width: 5)),
+        shape: StadiumBorder(
+            side: BorderSide(
+                color:
+                    pro.themeMode == ThemeMode.dark ? blackColor : Colors.white,
+                width: 5)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

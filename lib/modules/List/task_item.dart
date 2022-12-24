@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoapp/modules/List/edittask.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:todo_application/modules/List/edittask.dart';
 // import 'package:todo_application/shared/components/ui_utilities.dart';
 import '../../models/task.dart';
+import '../../providers/myProvider.dart';
 import '../../shared/network/local/firebase_utils.dart';
 import '../../shared/styles/colors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -9,7 +13,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class TaskItem extends StatefulWidget {
   Task task;
   TaskItem(this.task);
-
+  DateTime selectedDate = DateTime.now();
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
@@ -17,6 +21,8 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 33, vertical: 10),
       child: Slidable(
@@ -25,22 +31,34 @@ class _TaskItemState extends State<TaskItem> {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-                onPressed: (context) {
-                  deleteTasksFromFireStore(widget.task.id);
-                },
-                icon: Icons.delete,
-                label: 'Delete',
-                backgroundColor: redColor,
-                autoClose: true,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15))),
+              onPressed: (context) {
+                deleteTasksFromFireStore(widget.task.id);
+              },
+              icon: Icons.delete,
+              label: AppLocalizations.of(context)!.delete,
+              backgroundColor: redColor,
+              autoClose: true,
+              borderRadius: provider.language == "ar"
+                  ? BorderRadius.only(
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15))
+                  : BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      bottomLeft: Radius.circular(15)),
+            ),
             SlidableAction(
               onPressed: (context) {
-                // Navigator.pushNamed(context, editScreen.routename);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => editScreen(
+                      task: widget.task,
+                    ),
+                  ),
+                );
               },
               icon: Icons.edit,
-              label: 'Edit',
+              label: AppLocalizations.of(context)!.edit,
               backgroundColor: blueColor,
               spacing: 0.0,
               autoClose: true,
@@ -50,7 +68,8 @@ class _TaskItemState extends State<TaskItem> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 27),
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(15)),
+              color: provider.themeMode ==
+          ThemeMode.dark? Color.fromRGBO(35, 37, 50, 0.4196078431372549) : Colors.white, borderRadius: BorderRadius.circular(15)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +80,9 @@ class _TaskItemState extends State<TaskItem> {
                   Container(
                     width: 4,
                     height: 60,
-                    margin: EdgeInsets.only(right: 25),
+                    margin: provider.language == "ar"
+                        ? EdgeInsets.only(left: 25)
+                        : EdgeInsets.only(right: 25),
                     decoration: BoxDecoration(
                         color:
                             widget.task.isDone == true ? greenColor : blueColor,
@@ -83,7 +104,7 @@ class _TaskItemState extends State<TaskItem> {
                         height: 9,
                       ),
                       Text(
-                        '${widget.task.date}',
+                        '${widget.selectedDate.day} / ${widget.selectedDate.month} / ${widget.selectedDate.year}',
                         style: TextStyle(
                             color: widget.task.isDone == true
                                 ? greenColor
@@ -101,7 +122,7 @@ class _TaskItemState extends State<TaskItem> {
                 },
                 child: widget.task.isDone == true
                     ? Text(
-                        'Done!',
+                        AppLocalizations.of(context)!.done,
                         style: TextStyle(
                             color: greenColor,
                             fontWeight: FontWeight.bold,

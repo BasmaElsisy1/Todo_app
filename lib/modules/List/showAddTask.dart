@@ -24,12 +24,18 @@ class _AddTaskState extends State<AddTask> {
     var provider = Provider.of<MyProvider>(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 21, horizontal: 44),
+      color: provider.themeMode == ThemeMode.dark ? blackColor : Colors.white,
       child: Column(
         children: [
           Text(
-            'Add new Task',
+            AppLocalizations.of(context)!.addNewTask,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: provider.themeMode == ThemeMode.dark
+                    ? Colors.white
+                    : blackColor),
           ),
           SizedBox(
             height: 40,
@@ -39,25 +45,36 @@ class _AddTaskState extends State<AddTask> {
               child: TextFormField(
                 validator: (text) {
                   if (text != null && text.isEmpty) {
-                    return 'Please write task title';
+                    return AppLocalizations.of(context)!.addNewTask_error;
                   }
                   return null;
                 },
                 controller: titleController,
                 decoration: InputDecoration(
-                  hintText: 'enter your task',
+                  hintText: AppLocalizations.of(context)!.addNewTask_hint,
                   hintStyle: TextStyle(
                       fontSize: 20,
                       color: graylightColor,
                       fontWeight: FontWeight.bold),
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: blackColor, width: 2),
+                    borderSide: BorderSide(
+                        color: provider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : blackColor,
+                        width: 5),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: blackColor, width: 2),
+                    borderSide: BorderSide(
+                        color: provider.themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : blackColor,
+                        width: 2),
                   ),
                 ),
-                style: TextStyle(color: blackColor),
+                style: TextStyle(
+                    color: provider.themeMode == ThemeMode.dark
+                        ? Colors.white
+                        : blackColor),
               )),
           SizedBox(
             height: 30,
@@ -68,11 +85,16 @@ class _AddTaskState extends State<AddTask> {
             },
             child: Text(
               '${selectedDate.day} / ${selectedDate.month} / ${selectedDate.year}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: provider.themeMode == ThemeMode.dark
+                      ? Colors.white
+                      : blackColor),
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 40,
           ),
           InkWell(
               onTap: () {
@@ -83,10 +105,13 @@ class _AddTaskState extends State<AddTask> {
                         DateUtils.dateOnly(selectedDate).microsecondsSinceEpoch,
                   );
 
-                  showLoading('loading ... ', context);
+                  showLoading(AppLocalizations.of(context)!.loading, context);
                   addTaskToFireStore(task).then((value) {
                     hideLoading(context);
-                    showMessage('Task Added Successfully', context, 'Okay', () {
+                    showMessage(
+                        AppLocalizations.of(context)!.successfull_message,
+                        context,
+                        AppLocalizations.of(context)!.okay, () {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     });
@@ -99,7 +124,8 @@ class _AddTaskState extends State<AddTask> {
                 decoration: BoxDecoration(
                     color: blueColor,
                     borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: Colors.white, width: 5)),
+                    border: Border.all(color: provider.themeMode ==
+                        ThemeMode.dark? blackColor : Colors.white, width: 5)),
                 child: Icon(
                   Icons.done_outlined,
                   color: Colors.white,

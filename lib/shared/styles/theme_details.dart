@@ -24,7 +24,6 @@ class ThemeDetails {
           titleTextStyle: TextStyle(
               fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
           selectedItemColor: blueColor,
           unselectedItemColor: graylightColor),
       floatingActionButtonTheme:
@@ -50,7 +49,6 @@ class ThemeDetails {
           titleTextStyle: TextStyle(
               fontSize: 22, color: blackColor, fontWeight: FontWeight.bold)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: blackColor,
           selectedItemColor: blueColor,
           unselectedItemColor: graylightColor));
 }

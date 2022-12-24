@@ -30,6 +30,6 @@ Future<void> ChangeDone(String id) {
   return getTasksCollections().doc(id).update({"isDone": true});
 }
 
-// Future<void> Edit(String id, String title) {
-//   return getTasksCollections().doc(id).update({"title": title});
-// }
+Future<void> Edit(String id, String title, int date ) {
+  return getTasksCollections().doc(id).update({"title": title , "date" : date});
+}

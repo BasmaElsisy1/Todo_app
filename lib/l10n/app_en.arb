@@ -6,5 +6,18 @@
   "english" : "English",
   "arabic" : "Arabic",
   "dark": "Dark",
-  "light" : "Light"
+  "light" : "Light",
+  "addNewTask" : "Add new Task",
+  "addNewTask_hint" : "enter your task",
+  "addNewTask_error" : "Please write task title",
+  "done" : "Done!",
+  "edit" : "Edit",
+  "delete" : "Delete",
+  "edit_task" : "Edit Task",
+  "this_is_title" : "This is title",
+  "select_date" : "Select date",
+  "save" : "Save Changes",
+  "loading" : "Loading ...",
+  "successfull_message" : "Task Added Successfully",
+  "okay" : "Okay"
 }

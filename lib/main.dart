@@ -4,8 +4,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:todoapp/modules/List/edittask.dart';
 import '../providers/myProvider.dart';
 import '../layout/home.dart';
+import 'models/task.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

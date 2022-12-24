@@ -6,6 +6,19 @@
   "english" : "الإنجليزية",
   "arabic" : "عربي",
   "dark": "الوضع المظلم",
-  "light" : "وضع الضوء"
+  "light" : "وضع الضوء",
+  "addNewTask" : "أضف مهمة جديدة",
+  "addNewTask_hint" : "أدخل مهمتك",
+  "addNewTask_error" : "الرجاء كتابة عنوان المهمة",
+  "done" : "تم!",
+  "edit" : "تعديل",
+  "delete" : "حذف",
+  "edit_task" : "تعديل المهمة",
+  "this_is_title" : "هذا هو العنوان",
+  "select_date" : "حدد تاريخ",
+  "save" : "حفظ التغييرات",
+  "loading" : "تحميل ...",
+  "successfull_message" : "تمت إضافة المهمة بنجاح",
+  "okay" : "تمام"
 
 }
